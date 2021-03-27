@@ -20,6 +20,7 @@ public class AddStudent extends javax.swing.JInternalFrame {
     
     public AddStudent() {
         initComponents();
+        //tableload();
         
         con = DBconnect.connect();
     }
@@ -220,4 +221,6 @@ public class AddStudent extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
+
+   
 }

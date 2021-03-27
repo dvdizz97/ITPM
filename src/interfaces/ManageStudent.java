@@ -5,21 +5,45 @@
  */
 package interfaces;
 
+import code.DBconnect;
+import com.mysql.cj.protocol.Resultset;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author dilshan
  */
 public class ManageStudent extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManageStudent
-     */
+    Resultset rs = null;
+    PreparedStatement pst;
+    Connection con = null;
+    
     public ManageStudent() {
+        
+        con = DBconnect.connect();
         initComponents();
+        tableload();
         
         setBounds(10, 10, 640, 480);
         setVisible(true);
+        tableload();
         
+        
+    }
+    
+    public void tableload()
+    {
+        try {
+            String sql = "SELECT semester,Programme,gnum,subgnum,gid,subgid FROM Student";
+            pst = con.prepareStatement(sql);
+            rs = (Resultset) pst.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel((ResultSet) rs));
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -201,4 +225,6 @@ public class ManageStudent extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
+
+   
 }
