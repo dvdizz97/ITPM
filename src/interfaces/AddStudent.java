@@ -5,17 +5,23 @@
  */
 package interfaces;
 
+import code.DBconnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author dilshan
  */
 public class AddStudent extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AddStudent
-     */
+    PreparedStatement pst=null;
+    Connection con = null;
+    
     public AddStudent() {
         initComponents();
+        
+        con = DBconnect.connect();
     }
 
     /**
@@ -68,6 +74,11 @@ public class AddStudent extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Save");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Clear");
 
@@ -168,6 +179,26 @@ public class AddStudent extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String semester = jTextField1.getText();
+        String Programme = jTextField2.getText();
+        Integer gnum = (Integer)jSpinner1.getValue();
+        Integer subgnum = (Integer)jSpinner1.getValue();
+        String gid = jTextField5.getText();
+        String subgid = jTextField6.getText();
+        
+        try {
+             String sql = "INSERT INTO Student(semester,Programme,gnum,subgnum,gid,subgid) VALUES ('"+semester+"','"+Programme+"','"+gnum+"','"+subgnum+"','"+gid+"','"+subgid+"')";
+        
+        pst = con.prepareStatement(sql);
+        pst.execute();
+        
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

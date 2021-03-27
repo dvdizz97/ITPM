@@ -16,8 +16,8 @@ public static Connection connect()
 
     try 
     {   
-       Class.forName("com.mysqljdbc.Driver");
-       System.out.println("welcome");
+     
+       System.out.println("DB connected succefully");
        conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/itpm", "root", "");
        
      
