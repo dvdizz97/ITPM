@@ -5,17 +5,46 @@
  */
 package interfaces;
 
+import code.DBconnect;
+import com.mysql.cj.protocol.Resultset;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author dilshan
  */
 public class ManageLable extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManageLable
-     */
+    Resultset rs = null;
+    PreparedStatement pst;
+    Connection con = null;
+   
     public ManageLable() {
         initComponents();
+        
+        con = DBconnect.connect();
+        initComponents();
+        tableload();
+        
+        setBounds(10, 10, 640, 480);
+        setVisible(true);
+        tableload();
+    }
+    
+    public void tableload()
+    {
+        try {
+            String sql = "SELECT  ID,TagName,TagCode,RelatedTag FROM lable";
+            pst = con.prepareStatement(sql);
+            rs = (Resultset) pst.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel((ResultSet) rs));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -40,6 +69,8 @@ public class ManageLable extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(670, 424));
 
@@ -54,13 +85,33 @@ public class ManageLable extends javax.swing.JInternalFrame {
                 "ID", "Tag Name", "Tag Code", "Related Tag"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel4.setText("Related Tag");
 
         jButton1.setText("Update");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Clear");
 
@@ -72,6 +123,12 @@ public class ManageLable extends javax.swing.JInternalFrame {
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setText("Tag Code");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "select", "hello", "adw" }));
+
+        jLabel5.setText("ID");
+
+        jLabel6.setText("ID");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,12 +148,15 @@ public class ManageLable extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addGap(78, 78, 78)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
@@ -123,7 +183,11 @@ public class ManageLable extends javax.swing.JInternalFrame {
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)))
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -135,12 +199,80 @@ public class ManageLable extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int x = JOptionPane.showConfirmDialog(null, "Do you really want to update");
+        
+        if(x==0)
+        {
+            String ID = jLabel6.getText();
+            String TagName = jTextField1.getText();
+            String TagCode = jTextField2.getText();
+            String RelatedTag = jComboBox1.getSelectedItem().toString();
+            
+            System.out.println("***");
+            try {
+            String sql = "UPDATE lable SET TagName = '"+ TagName +"', TagCode = '"+ TagCode +"', RelatedTag = '"+ RelatedTag +"' WHERE ID = '"+ ID +"' ";
+             
+             pst = con.prepareStatement(sql);
+             
+             pst.execute();
+             
+             tableload();
+        
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+         int r = jTable1.getSelectedRow();
+        
+        String ID = jTable1.getValueAt(r, 0).toString();
+        String TagName = jTable1.getValueAt(r, 1).toString();
+        String TagCode = jTable1.getValueAt(r, 2).toString();
+        String RelatedTag = jTable1.getValueAt(r, 3).toString();
+       
+        
+        
+        jLabel6.setText(ID);
+        jTextField1.setText(TagName);
+        jTextField2.setText(TagCode);
+        
+        jComboBox1.setSelectedItem(RelatedTag);
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int x = JOptionPane.showConfirmDialog(null, "Do you want to delete this");
+        
+        if(x==0)
+        {
+            String ID = jLabel6.getText();
+            
+            try {
+                String sql = "DELETE from lable where ID = '" + ID + "'"; 
+                pst = con.prepareStatement(sql);
+                pst.execute();
+                tableload();
+            } catch (Exception e) {
+                
+                System.out.println(e);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -151,6 +283,8 @@ public class ManageLable extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;

@@ -5,17 +5,25 @@
  */
 package interfaces;
 
+import code.DBconnect;
+import com.mysql.cj.protocol.Resultset;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author dilshan
  */
 public class AddLable extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AddLable
-     */
+    Resultset rs = null;
+    PreparedStatement pst;
+    Connection con = null;
+    
     public AddLable() {
         initComponents();
+        
+        con = DBconnect.connect();
     }
 
     /**
@@ -47,6 +55,12 @@ public class AddLable extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Tag Name");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Related Tag");
 
         jLabel4.setText("Tag Code");
@@ -54,6 +68,18 @@ public class AddLable extends javax.swing.JInternalFrame {
         jButton1.setText("Clear");
 
         jButton2.setText("Save");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "hello", "adw" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,6 +143,32 @@ public class AddLable extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String TagName = jTextField1.getText();
+        String TagCode = jTextField3.getText();
+        String RelatedTag = jComboBox1.getSelectedItem().toString();
+        
+        
+        try {
+             String sql = "INSERT INTO lable(TagName,TagCode,RelatedTag) VALUES ('"+ TagName +"','"+ TagCode +"','"+ RelatedTag +"')";
+        
+        pst = con.prepareStatement(sql);
+        pst.execute();
+        
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
