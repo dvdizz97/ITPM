@@ -60,17 +60,15 @@
               <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lable" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="jTextField1" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="jTextField4" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                              <Component id="jTextField5" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jSpinner2" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Component id="jTextField1" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="jTextField2" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="jTextField4" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Component id="jTextField5" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jTextField6" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="jSpinner2" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="jSpinner3" alignment="1" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -112,7 +110,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jSpinner3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -287,12 +285,12 @@
         <Property name="text" type="java.lang.String" value="ID"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
-    </Component>
     <Component class="javax.swing.JLabel" name="lable">
       <Properties>
         <Property name="text" type="java.lang.String" value="ID"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="jSpinner3">
     </Component>
   </SubComponents>
 </Form>

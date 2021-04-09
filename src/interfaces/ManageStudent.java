@@ -77,8 +77,8 @@ public class ManageStudent extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jSpinner2 = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
         lable = new javax.swing.JLabel();
+        jSpinner3 = new javax.swing.JSpinner();
 
         setPreferredSize(new java.awt.Dimension(670, 424));
         try {
@@ -175,15 +175,14 @@ public class ManageStudent extends javax.swing.JInternalFrame {
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lable)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSpinner2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -217,7 +216,7 @@ public class ManageStudent extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -244,7 +243,7 @@ public class ManageStudent extends javax.swing.JInternalFrame {
             String ID = lable.getText();
             String semester = jTextField1.getText();
             String Programme = jTextField2.getText();
-            String gnum = jTextField6.getText();
+            Integer gnum = (Integer) jSpinner3.getValue();
             Integer subgnum = (Integer)jSpinner2.getValue();
             String gid = jTextField4.getText();
             String subgid = jTextField5.getText();
@@ -259,6 +258,7 @@ public class ManageStudent extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
+            tableload();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -268,16 +268,16 @@ public class ManageStudent extends javax.swing.JInternalFrame {
         String id = jTable1.getValueAt(r, 0).toString();
         String semester = jTable1.getValueAt(r, 1).toString();
         String Programme = jTable1.getValueAt(r, 2).toString();
-        String gnum = jTable1.getValueAt(r, 3).toString();
-        String subgnum = jTable1.getValueAt(r, 4).toString();
+        Integer gnum = (Integer) jTable1.getValueAt(r, 3);
+        Integer subgnum = (Integer) jTable1.getValueAt(r, 4);
         String gid = jTable1.getValueAt(r, 5).toString();
         String subgid = jTable1.getValueAt(r, 6).toString();
         
         lable.setText(id);
         jTextField1.setText(semester);
         jTextField2.setText(Programme);
-        jTextField6.setText(gnum);
-        jSpinner2.setValue(jTable1.getValueAt(r, 5));
+        jSpinner3.setValue(gnum);
+        jSpinner2.setValue(subgnum);
         jTextField4.setText(gid);
         jTextField5.setText(subgid);
     }//GEN-LAST:event_jTable1MouseClicked
@@ -317,12 +317,12 @@ public class ManageStudent extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel lable;
     // End of variables declaration//GEN-END:variables
 

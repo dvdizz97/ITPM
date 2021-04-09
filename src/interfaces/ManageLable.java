@@ -10,6 +10,7 @@ import com.mysql.cj.protocol.Resultset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
@@ -266,7 +267,8 @@ public class ManageLable extends javax.swing.JInternalFrame {
                 pst = con.prepareStatement(sql);
                 pst.execute();
                 tableload();
-            } catch (Exception e) {
+            } 
+            catch (SQLException e) {
                 
                 System.out.println(e);
             }
